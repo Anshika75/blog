@@ -4,14 +4,34 @@ require('dotenv').config(); // importing the dotenv module and calling the confi
 const app = express(); // creating an express application and assigning it to the app variable
 app.use(bodyParser.json()); // telling the app to use the json method of the body-parser module to parse the request body as JSON data
 
-app.get('/', async (req, res, next) => { // defining a route handler for the GET / route that sends a JSON response with a message property set
+app.get('/get-blogs', async (req, res, next) => { // defining a route handler for the GET / route that sends a JSON response with a message property set
     try { // using a try block to catch any errors that occur when the code inside the block is executed and handle them in the catch block
-        
-        res.json({message:"wow its working"}); // sending a JSON response with a message property set to "wow its working" when the route handler is called by a client request using the res.json method
-    } catch(error) { // catching any errors that occur when the code inside the try block is executed
+        //ek bar hi to hai res.json here ????
+        res.json({ 
+            status:true,
+            data:[{
+                "id":1,
+                "title":"first blog heading",
+                "body":"blog description here"
+                }],
+            message: "success" }); // sending a JSON response with a message property set to "wow its working" when the route handler is called by a client request using the res.json method
+    } catch (error) { // catching any errors that occur when the code inside the try block is executed
         next(error); // passing the error to the next middleware function in the request-response cycle using the next function to handle the error in the error-handling middleware function 
-    }
+    }
 });
+
+
+
+app.post('/save-blog', async (req, res, next) => { // defining a route handler for the POST / route that sends a JSON response with a message property set
+    try { // using a try block to catch any errors that occur when the code inside the block is executed and handle them in the catch block
+
+        res.json({ data: req.body.title }); // sending a JSON response with a message property set to "wow its working" when the route handler is called by a client request using the res.json method
+    } catch (error) { // catching any errors that occur when the code inside the try block is executed
+        next(error); // passing the error to the next middleware function in the request-response cycle using the next function to handle the error in the error-handling middleware function
+    }
+});
+
+
 
 const port = process.env.PORT || 8080; // defining the port number to be used by the server and assigning it to the port variable using the PORT environment variable or 8080 as the default value if the PORT environment variable is not set
 
