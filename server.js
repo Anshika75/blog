@@ -1,6 +1,7 @@
 const express = require('express'); // importing the express module and assigning it to the express variable
 const bodyParser = require('body-parser'); // importing the body-parser module and assigning it to the bodyParser variable
 require('dotenv').config(); // importing the dotenv module and calling the config method on it to load the environment variables from the .env file
+var blogController = require('./controllers/BlogController');
 const app = express(); // creating an express application and assigning it to the app variable
 app.use(bodyParser.json()); // telling the app to use the json method of the body-parser module to parse the request body as JSON data
 
@@ -32,6 +33,9 @@ app.post('/save-blog', async (req, res, next) => { // defining a route handler f
 });
 
 
+
+
+app.get('blog-listing',blogController.blogs); 
 
 const port = process.env.PORT || 8080; // defining the port number to be used by the server and assigning it to the port variable using the PORT environment variable or 8080 as the default value if the PORT environment variable is not set
 
